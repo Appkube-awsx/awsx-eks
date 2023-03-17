@@ -45,7 +45,24 @@ func getClusterCostDetail(region string, crossAccountRoleArn string, accessKey s
 			End:   aws.String("2023-02-01"),
 		},
 		Metrics: []*string{
-			aws.String("UnblendedCost"),
+			aws.String("USAGE_QUANTITY"),
+			aws.String("UNBLENDED_COST"),
+			aws.String("BLENDED_COST"),
+			aws.String("AMORTIZED_COST"),
+			aws.String("NET_AMORTIZED_COST"),
+			aws.String("NET_UNBLENDED_COST"),
+			aws.String("NORMALIZED_USAGE_AMOUNT"),
+
+		},
+		GroupBy: []*costexplorer.GroupDefinition{
+			{
+				Type: aws.String("DIMENSION"),
+				Key: aws.String("REGION"),
+			},
+			{
+				Type: aws.String("DIMENSION"),
+                Key: aws.String("SERVICE"),
+			},
 		},
 		Granularity: aws.String("MONTHLY"),
 		Filter: &costexplorer.Expression{
