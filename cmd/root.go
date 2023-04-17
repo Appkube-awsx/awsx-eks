@@ -17,7 +17,7 @@ var AwsxClusterMetadataCmd = &cobra.Command{
 	Long:  `getListClusterMetaDataDetails command gets resource counts details of an AWS account`,
 
 	Run: func(cmd *cobra.Command, args []string) {
-		
+
 		log.Println("Command getElementDetails started")
 		vaultUrl := cmd.PersistentFlags().Lookup("vaultUrl").Value.String()
 		accountNo := cmd.PersistentFlags().Lookup("accountId").Value.String()
@@ -28,12 +28,11 @@ var AwsxClusterMetadataCmd = &cobra.Command{
 		env := cmd.PersistentFlags().Lookup("env").Value.String()
 		externalId := cmd.PersistentFlags().Lookup("externalId").Value.String()
 
-		authFlag := authenticator.AuthenticateData(vaultUrl, accountNo, region, acKey, secKey,crossAccountRoleArn, env, externalId)
-		
+		authFlag := authenticator.AuthenticateData(vaultUrl, accountNo, region, acKey, secKey, crossAccountRoleArn, env, externalId)
 
 		if authFlag {
 			getListCluster(region, crossAccountRoleArn, acKey, secKey, env, externalId)
-	    }	
+		}
 	},
 }
 
@@ -59,9 +58,10 @@ func getListCluster(region string, crossAccountRoleArn string, accessKey string,
 	if err != nil {
 		log.Fatalln("Error:in getting  cluster list", err)
 	}
-	log.Println(listClusterResponse)	
+	log.Println(listClusterResponse)
 	return listClusterResponse, err
 }
+
 // for _, clusterName := range listClusterResponse.Clusters {
 // 		clusterDetails := getClusterDetails(region, accessKey, secretKey, *clusterName)
 
@@ -77,8 +77,6 @@ func getListCluster(region string, crossAccountRoleArn string, accessKey string,
 // 		}
 // 	}
 
-
-
 func Execute() {
 	err := AwsxClusterMetadataCmd.Execute()
 	if err != nil {
@@ -87,9 +85,10 @@ func Execute() {
 	}
 }
 
-func init() { 
+func init() {
 	AwsxClusterMetadataCmd.AddCommand(clustercmd.GetConfigDataCmd)
 	AwsxClusterMetadataCmd.AddCommand(clustercmd.GetCostDataCmd)
+	AwsxClusterMetadataCmd.AddCommand(clustercmd.GetCostSpikeCmd)
 
 	AwsxClusterMetadataCmd.PersistentFlags().String("vaultUrl", "", "vault end point")
 	AwsxClusterMetadataCmd.PersistentFlags().String("accountId", "", "aws account number")

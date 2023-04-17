@@ -25,8 +25,8 @@ var GetCostDataCmd = &cobra.Command{
 		crossAccountRoleArn := cmd.Parent().PersistentFlags().Lookup("crossAccountRoleArn").Value.String()
 		env := cmd.Parent().PersistentFlags().Lookup("env").Value.String()
 		externalId := cmd.Parent().PersistentFlags().Lookup("externalId").Value.String()
+
 		authFlag := authenticator.AuthenticateData(vaultUrl, accountNo, region, acKey, secKey, crossAccountRoleArn, env, externalId)
-		
 
 		if authFlag {
 			getClusterCostDetail(region, crossAccountRoleArn, acKey, secKey, externalId)
@@ -40,35 +40,49 @@ func getClusterCostDetail(region string, crossAccountRoleArn string, accessKey s
 
 	input := &costexplorer.GetCostAndUsageInput{
 		TimePeriod: &costexplorer.DateInterval{
-			Start: aws.String("2022-07-01"),
-			End:   aws.String("2022-07-31"),
+			Start: aws.String("2023-02-01"),
+			End:   aws.String("2023-03-01"),
 		},
+
 		Metrics: []*string{
 			// aws.String("USAGE_QUANTITY"),
 			aws.String("UNBLENDED_COST"),
 			aws.String("BLENDED_COST"),
-			// aws.String("AMORTIZED_COST"),
-			// aws.String("NET_AMORTIZED_COST"),
-			aws.String("NET_UNBLENDED_COST"),
-			aws.String("NORMALIZED_USAGE_AMOUNT"),
+			aws.String("AMORTIZED_COST"),
+			aws.String("NET_AMORTIZED_COST"),
+			// aws.String("AMORTIZED_COST_FOR_USAGE"),
+			// aws.String("NET_UNBLENDED_COST"),
+			// aws.String("NORMALIZED_USAGE_AMOUNT"),
 
 		},
 		GroupBy: []*costexplorer.GroupDefinition{
 			{
 				Type: aws.String("DIMENSION"),
-				Key: aws.String("REGION"),
+				Key:  aws.String("SERVICE"),
 			},
 			{
 				Type: aws.String("DIMENSION"),
-                Key: aws.String("SERVICE"),
+				Key:  aws.String("REGION"),
 			},
 		},
-		Granularity: aws.String("MONTHLY"),
+		Granularity: aws.String("DAILY"),
 		Filter: &costexplorer.Expression{
-			Dimensions: &costexplorer.DimensionValues{
-				Key: aws.String("SERVICE"),
-				Values: []*string{
-					aws.String("Amazon Elastic Container Service for Kubernetes"),
+			And: []*costexplorer.Expression{
+				{
+					Dimensions: &costexplorer.DimensionValues{
+						Key: aws.String("SERVICE"),
+						Values: []*string{
+							aws.String("Amazon Elastic Compute Cloud - Compute"),
+						},
+					},
+				},
+				{
+					Dimensions: &costexplorer.DimensionValues{
+						Key: aws.String("RECORD_TYPE"),
+						Values: []*string{
+							aws.String("Credit"),
+						},
+					},
 				},
 			},
 		},
@@ -83,5 +97,5 @@ func getClusterCostDetail(region string, crossAccountRoleArn string, accessKey s
 }
 
 func init() {
-	
+
 }
