@@ -20,5 +20,5 @@ awsx-eks getCostData -t <table> --zone <zone> --accessKey <accessKey> --secretKe
 ## To retrieve the cost Spikes details of a specific EKS clustercmd, run the following command:
 
 ```bash
-awsx-eks GetCostSpike -t <table> --zone <zone> --accessKey <accessKey> --secretKey <secretKey> --crossAccountRoleArn <crossAccountRoleArn> --external <externalId> --env <env> --granularity <granularity> --startDate <startDate> --endDate <endDate> --serviceName <"serviceName">
+awsx-eks GetCostSpike -t <table> --zone <zone> --accessKey <accessKey> --secretKey <secretKey> --crossAccountRoleArn <crossAccountRoleArn> --external <externalId> --env <env> --granularity <granularity> --startDate <startDate> --endDate <endDate> 
 ```
