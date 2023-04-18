@@ -72,7 +72,7 @@ func getClusterCostDetail(region string, crossAccountRoleArn string, accessKey s
 					Dimensions: &costexplorer.DimensionValues{
 						Key: aws.String("SERVICE"),
 						Values: []*string{
-							aws.String("Amazon Elastic Compute Cloud - Compute"),
+							aws.String("Amazon Elastic Container Service for Kubernetes"),
 						},
 					},
 				},
