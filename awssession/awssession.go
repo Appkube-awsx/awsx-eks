@@ -15,10 +15,10 @@ func GetSessionByRegion(region string) *session.Session {
 	return sess
 }
 
-func GetSessionByCreds(region string, accessKey string, secretKey string,token string) (*session.Session,error) {
+func GetSessionByCreds(region string, accessKey string, secretKey string, token string) (*session.Session, error) {
 	sess, err := session.NewSession(&aws.Config{
 		Credentials: credentials.NewStaticCredentials(accessKey, secretKey, token),
 		Region:      aws.String(region),
 	})
-	return sess,err
+	return sess, err
 }

@@ -25,13 +25,12 @@ var AwsxClusterMetadataCmd = &cobra.Command{
 		acKey := cmd.PersistentFlags().Lookup("accessKey").Value.String()
 		secKey := cmd.PersistentFlags().Lookup("secretKey").Value.String()
 		crossAccountRoleArn := cmd.PersistentFlags().Lookup("crossAccountRoleArn").Value.String()
-		env := cmd.PersistentFlags().Lookup("env").Value.String()
 		externalId := cmd.PersistentFlags().Lookup("externalId").Value.String()
 
-		authFlag := authenticator.AuthenticateData(vaultUrl, accountNo, region, acKey, secKey, crossAccountRoleArn, env, externalId)
+		authFlag := authenticator.AuthenticateData(vaultUrl, accountNo, region, acKey, secKey, crossAccountRoleArn, externalId)
 
 		if authFlag {
-			getListCluster(region, crossAccountRoleArn, acKey, secKey, env, externalId)
+			getListCluster(region, crossAccountRoleArn, acKey, secKey, externalId)
 		}
 	},
 }
@@ -49,7 +48,7 @@ var AwsxClusterMetadataCmd = &cobra.Command{
 // }
 
 // json.Unmarshal
-func getListCluster(region string, crossAccountRoleArn string, accessKey string, secretKey string, env string, externalId string) (*eks.ListClustersOutput, error) {
+func getListCluster(region string, crossAccountRoleArn string, accessKey string, secretKey string, externalId string) (*eks.ListClustersOutput, error) {
 	log.Println("getting cluster metadata list summary")
 
 	listClusterClient := client.GetClient(region, crossAccountRoleArn, accessKey, secretKey, externalId)
@@ -95,8 +94,7 @@ func init() {
 	AwsxClusterMetadataCmd.PersistentFlags().String("zone", "", "aws region")
 	AwsxClusterMetadataCmd.PersistentFlags().String("accessKey", "", "aws access key")
 	AwsxClusterMetadataCmd.PersistentFlags().String("secretKey", "", "aws secret key")
-	AwsxClusterMetadataCmd.PersistentFlags().String("env", "", "aws env is required")
 	AwsxClusterMetadataCmd.PersistentFlags().String("crossAccountRoleArn", "", "aws crossAccountRoleArn is required")
 	AwsxClusterMetadataCmd.PersistentFlags().String("externalId", "", "aws external id auth")
-	// AwsxClusterMetadataCmd.PersistentFlags().String("env", "", "aws env")
+
 }

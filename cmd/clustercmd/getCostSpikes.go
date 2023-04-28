@@ -25,7 +25,7 @@ var GetCostSpikeCmd = &cobra.Command{
 		region := cmd.Parent().PersistentFlags().Lookup("zone").Value.String()
 		acKey := cmd.Parent().PersistentFlags().Lookup("accessKey").Value.String()
 		secKey := cmd.Parent().PersistentFlags().Lookup("secretKey").Value.String()
-		env := cmd.Parent().PersistentFlags().Lookup("env").Value.String()
+
 		crossAccountRoleArn := cmd.Parent().PersistentFlags().Lookup("crossAccountRoleArn").Value.String()
 		externalId := cmd.Parent().PersistentFlags().Lookup("externalId").Value.String()
 
@@ -39,17 +39,17 @@ var GetCostSpikeCmd = &cobra.Command{
 		if err != nil {
 			log.Fatalln("Error: in getting granularity flag value", err)
 		}
-		authFlag := authenticator.AuthenticateData(vaultUrl, accountNo, region, acKey, secKey, env, crossAccountRoleArn, externalId)
+		authFlag := authenticator.AuthenticateData(vaultUrl, accountNo, region, acKey, secKey, crossAccountRoleArn, externalId)
 
 		if authFlag {
 
-			wrapperCostSpike(region, crossAccountRoleArn, acKey, secKey, env, externalId, granularity, startDate, endDate)
+			wrapperCostSpike(region, crossAccountRoleArn, acKey, secKey, externalId, granularity, startDate, endDate)
 		}
 	},
 }
 
 // Wrapper function to get cost, spike percentage and print them.
-func wrapperCostSpike(region string, crossAccountRoleArn string, acKey string, secKey string, env string, externalId string, granularity string, startDate string, endDate string) (string, error) {
+func wrapperCostSpike(region string, crossAccountRoleArn string, acKey string, secKey string, externalId string, granularity string, startDate string, endDate string) (string, error) {
 	costClient := client.GetCostClient(region, crossAccountRoleArn, acKey, secKey, externalId)
 
 	switch granularity {
