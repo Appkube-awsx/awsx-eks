@@ -86,8 +86,6 @@ func Execute() {
 
 func init() {
 	AwsxClusterMetadataCmd.AddCommand(clustercmd.GetConfigDataCmd)
-	AwsxClusterMetadataCmd.AddCommand(clustercmd.GetCostDataCmd)
-	AwsxClusterMetadataCmd.AddCommand(clustercmd.GetCostSpikeCmd)
 
 	AwsxClusterMetadataCmd.PersistentFlags().String("vaultUrl", "", "vault end point")
 	AwsxClusterMetadataCmd.PersistentFlags().String("accountId", "", "aws account number")
