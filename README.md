@@ -39,7 +39,7 @@ It has detailed instruction on how to write a subcommand plugin , build/test/deb
             go install
             - go install command creates an exe with the name of the module (e.g. awsx-eks) and save it in the GOPATH
             - Now we can execute this command on command prompt as below
-           awsx-eks getCostSpike --zone=us-east-1 --accessKey=xxxxxxxxxx --secretKey=xxxxxxxxxx --crossAccountRoleArn=xxxxxxxxxx  --externalId=xxxxxxxxxx
+           awsx-eks getConfigData --zone=us-east-1 --accessKey=xxxxxxxxxx --secretKey=xxxxxxxxxx --crossAccountRoleArn=xxxxxxxxxx  --externalId=xxxxxxxxxx
 
 # what it does
 
