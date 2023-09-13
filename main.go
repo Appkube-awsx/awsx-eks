@@ -1,7 +1,7 @@
 package main
 
-import "github.com/Appkube-awsx/awsx-eks/cmd"
+import "github.com/Appkube-awsx/awsx-eks/command"
 
 func main() {
-	cmd.Execute()
+	command.Execute()
 }
