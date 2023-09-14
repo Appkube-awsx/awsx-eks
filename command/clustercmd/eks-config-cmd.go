@@ -14,8 +14,8 @@ import (
 // getConfigDataCmd represents the getConfigData command
 var GetConfigDataCmd = &cobra.Command{
 	Use:   "getConfigData",
-	Short: "A brief description of your command",
-	Long:  ``,
+	Short: "config data for eks cluster",
+	Long:  `config data for eks cluster`,
 	Run: func(cmd *cobra.Command, args []string) {
 
 		authFlag, clientAuth, err := authenticate.SubCommandAuth(cmd)
@@ -36,7 +36,7 @@ var GetConfigDataCmd = &cobra.Command{
 }
 
 func getClusterDetails(clusterName string, auth client.Auth) *eks.DescribeClusterOutput {
-	log.Println("Getting aws cluster data")
+	log.Println("Getting aws eks cluster data")
 	listClusterClient := client.GetClient(auth, client.EKS_CLIENT).(*eks.EKS)
 	input := &eks.DescribeClusterInput{
 		Name: aws.String(clusterName),

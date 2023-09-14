@@ -13,8 +13,8 @@ func GetEksClusterByAccountNo(vaultUrl string, vaultToken string, accountNo stri
 	return GetEksClustersByFlagAndClientAuth(authFlag, clientAuth, err)
 }
 
-func GetEksClusterByUserCreds(region string, accesskey string, secretKey string, crossAccountRoleArn string, externalId string) ([]*eks.DescribeClusterOutput, error) {
-	authFlag, clientAuth, err := authenticate.AuthenticateData("", "", "", region, accesskey, secretKey, crossAccountRoleArn, externalId)
+func GetEksClusterByUserCreds(region string, accessKey string, secretKey string, crossAccountRoleArn string, externalId string) ([]*eks.DescribeClusterOutput, error) {
+	authFlag, clientAuth, err := authenticate.AuthenticateData("", "", "", region, accessKey, secretKey, crossAccountRoleArn, externalId)
 	return GetEksClustersByFlagAndClientAuth(authFlag, clientAuth, err)
 }
 
